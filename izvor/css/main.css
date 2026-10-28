@@ -337,6 +337,26 @@ dialog.lb::backdrop{background:transparent}
 [data-tier="lite"] .par{transform:none}
 [data-tier="lite"] .sheet{background:rgba(10,10,30,.55)}
 
+/* ---------- film (click-to-load, YouTube tek na klik) ---------- */
+.film{padding:clamp(10px,1.6vw,18px)}
+.film-frame{position:relative;aspect-ratio:16/9;border-radius:var(--r-sm);overflow:hidden;background:var(--navy)}
+.film-frame picture,.film-frame img,.film-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.film-frame img{object-fit:cover}
+.film-frame::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(11,11,22,.05),rgba(11,11,22,.45))}
+.film-frame.on::after{display:none}
+.film-play{display:none;position:absolute;z-index:1;left:50%;top:50%;width:clamp(68px,12vw,104px);height:clamp(68px,12vw,104px);margin:calc(clamp(68px,12vw,104px)/-2) 0 0 calc(clamp(68px,12vw,104px)/-2);
+  place-items:center;border-radius:50%;border:2px solid var(--gold);background:var(--btn);color:var(--btn-ink);cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 14px 34px -8px rgba(0,0,0,.6);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.js .film-play{display:grid}
+.film-play .ico{width:42%;height:42%;fill:currentColor;stroke:none;margin-left:6%}
+.film-play:hover{transform:scale(1.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 18px 40px -8px rgba(0,0,0,.7)}
+.film-play:active{transform:scale(.97)}
+.film-play:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+.film-nojs{position:absolute;z-index:1;inset:auto 12px 12px;padding:.7em 1em;border-radius:12px;background:var(--glass-strong);color:var(--ink);font-weight:700;text-align:center}
+.film-note{margin:12px 6px 4px;color:var(--muted);font-size:.95rem;text-align:center}
+.film-note a{color:var(--accent);font-weight:700}
+@media (prefers-reduced-motion:reduce){.film-play,.film-play:hover,.film-play:active{transition:none;transform:none}}
+
 /* ---------- smanjeno kretanje ---------- */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}

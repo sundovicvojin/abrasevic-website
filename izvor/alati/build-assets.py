@@ -9,7 +9,7 @@ IZ = f"{R}/izvor"; S = f"{R}/sajt"   # IZ = izvori, S = gotov sajt za upload
 SRC = f"{IZ}/originali/gallery-img"; OUT = f"{S}/img"; ICONS = f"{S}/img/icons"; GEN = f"{IZ}/generisano"
 os.makedirs(OUT, exist_ok=True); os.makedirs(ICONS, exist_ok=True); os.makedirs(GEN, exist_ok=True)
 WIDTHS = [480, 800, 1200, 1800]
-meta = {}
+meta = json.load(open(f"{GEN}/meta.json")) if os.path.exists(f"{GEN}/meta.json") else {}   # zadrži i unose iz build-poster.py
 
 for fn in sorted(os.listdir(SRC)):
     if not fn.lower().endswith(".jpg"): continue

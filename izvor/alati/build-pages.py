@@ -22,7 +22,7 @@ def pic(key, alt, sizes, eager=False, pos=None, cls=""):
             f'<source type="image/webp" srcset="{ss("webp")}" sizes="{sizes}">'
             f'<img src="img/{key}-1200.jpg" srcset="{ss("jpg")}" sizes="{sizes}" width="{w}" height="{h}" alt="{alt}" {load}></picture>')
 
-CSP = "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self' mailto:"
+CSP = "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self' mailto:; frame-src https://www.youtube-nocookie.com"
 NAV = [("index.html", "Početna"), ("istorija.html", "Istorija"), ("sekcije.html", "Sekcije"), ("galerija.html", "Galerija"), ("kontakt.html", "Kontakt")]
 
 def head(title, desc, page, og_title=None, extra=""):
@@ -231,6 +231,7 @@ def index():
 {performances()}
 {gallery_preview()}
 {join_cta()}
+{film()}
 </main>
 '''
     return head("KUD „Abrašević“ Kraljevo — 100 godina (1926–2026)",
@@ -343,6 +344,20 @@ def performances():
       <p><strong>Termin i program biće objavljeni.</strong></p>
       <ul class="facts"><li>Šestodnevni festival</li><li>Član srpske sekcije CIOFF-a</li><li>CIOFF od 1995. (i ponovo od 2016.)</li></ul></div>
   </div></div></section>"""
+
+def film():
+    YT = "yJAS7HLsbC0"
+    poster = pic("film-poster", "Naslovna slika filma o KUD „Abrašević“", "(min-width:1240px) 1176px, calc(100vw - 32px)")
+    return f"""<section class="sec" id="film" aria-labelledby="h-film"><div class="wrap">
+  <div class="sec-head rv"><h2 id="h-film">Film o Abraševiću</h2>
+    <p class="intro">Sto godina igre, pesme i tradicije u jednom filmu. Pustite ga i pogledajte kako je počelo i do kuda je stiglo.</p></div>
+  <div class="film glass rv d1">
+    <div class="film-frame" data-yt="{YT}">{poster}
+      <button class="film-play" type="button" aria-label="Pusti film">{ico("play")}</button>
+      <noscript><a class="film-nojs" href="https://youtu.be/{YT}" target="_blank" rel="noopener noreferrer">Pogledajte film na YouTube-u</a></noscript></div>
+    <p class="film-note">Ako se video ne učita, <a href="https://youtu.be/{YT}" target="_blank" rel="noopener noreferrer">pogledajte ga na YouTube-u</a>.</p>
+  </div>
+</div></section>"""
 
 def join_cta():
     return f"""<section class="sec" id="pridruzi-se" aria-labelledby="h-join"><div class="wrap">
