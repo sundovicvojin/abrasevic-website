@@ -4,9 +4,9 @@ Statički sajt: čist HTML, CSS i vanilla JS. Nema servera, baze, frameworka ni 
 
 ## Šta se otprema na server
 
-Samo sadržaj foldera **`dist/`** (144 fajla, ~9 MB). Sve ostalo u projektu su izvori i alati i ne ide na server.
+Samo sadržaj foldera **`sajt/`** (142 fajla, ~9 MB). Sve ostalo u projektu su izvori, alati i dokumentacija i ne ide na server.
 
-1. Otvori `dist/` i otpremi **sve** (uključujući skrivene `.htaccess` i `_headers`) u koren sajta (FTP, cPanel, Netlify, Cloudflare Pages…).
+1. Otvori `sajt/` i otpremi **sve** (uključujući skrivene `.htaccess` i `_headers`) u koren sajta (FTP, cPanel, Netlify, Cloudflare Pages…).
 2. Domen: u kodu je privremeno `https://abrasevic.rs` (canonical, Open Graph, `sitemap.xml`, `robots.txt`, JSON-LD). Ako je domen drugačiji, vidi „Promena domena“.
 3. Sigurnosna zaglavlja:
    - **Apache** (većina hostinga): `.htaccess` radi sam (CSP, nosniff, Referrer-Policy, Permissions-Policy, X-Frame-Options, HSTS, keširanje, gzip/brotli, 404, preusmerenje na https).
@@ -18,49 +18,55 @@ Samo sadržaj foldera **`dist/`** (144 fajla, ~9 MB). Sve ostalo u projektu su i
 ## Struktura
 
 ```
-index.html        početna: hero, početak 1926, vremenska linija, jubilej, sekcije, nastupi, galerija, poziv
-istorija.html     istorija: imena, mesta, prekidi, ljudi
-sekcije.html      sve sekcije u detalje
-galerija.html     galerija + lightbox
-kontakt.html      kontakt podaci + forma (otvara e-poštu)
-404.html          stranica „ne postoji“
-css/              izvori: main.css (dizajn sistem), fonts.css, photos.css  →  site.min.css (generisan)
-js/               boot.js (tema, nivo uređaja), main.js (izvor)  →  site.min.js (generisan)
-fonts/            Fraunces + Manrope (woff2, OFL licenca)
-img/              generisane slike (AVIF/WebP/JPEG), logo, OG slika
-assets/           ORIGINALI (logo, fotografije) – ne menjati, ne otpremati
-tools/            skripte za generisanje (vidi dole)
-dist/             gotov folder za otpremanje (generiše se)
+sajt/                        ← OVO SE OTPREMA NA SERVER (gotov sajt)
+  index.html                 početna: hero, početak 1926, vremenska linija, jubilej, sekcije, nastupi, galerija, poziv
+  istorija.html              istorija: imena, mesta, prekidi, ljudi
+  sekcije.html               sve sekcije u detalje
+  galerija.html              galerija + lightbox
+  kontakt.html               kontakt podaci + forma (otvara e-poštu)
+  404.html                   stranica „ne postoji“
+  css/  js/  fonts/          site.min.css, boot.js + site.min.js, Manrope (woff2, OFL licenca)
+  img/                       slike (AVIF/WebP/JPEG), logo, OG slika; img/icons/ = ikonice
+  favicon.ico  robots.txt  sitemap.xml  site.webmanifest  .htaccess  _headers
+
+izvor/                       izvori (ne otpremaju se)
+  originali/                 ORIGINALI (logo PDF/PSD, fotografije): ne menjati
+  css/  js/                  main.css (dizajn sistem), fonts.css, photos.css; boot.js, main.js
+  alati/                     Python skripte za generisanje (vidi dole), sprite.svg, izvorni fontovi
+  generisano/                meta.json (dimenzije slika, interno)
+
+dokumentacija/               prompt i SKILL.md (radni materijal)
+README.md
 ```
 
 ## Kako se menja sadržaj
 
-Stranice se **generišu** iz `tools/build-pages.py` (zajednički meni i footer, kartice, vremenska linija). To je lokalna alatka, na serveru se ništa ne izvršava. Izmene tekstova radi u tom fajlu, a zatim pokreni (potrebni su Python 3 i Pillow):
+Stranice se **generišu** iz `izvor/alati/build-pages.py` (zajednički meni i footer, kartice, vremenska linija). To je lokalna alatka, na serveru se ništa ne izvršava. Izmene tekstova radi u tom fajlu, a zatim pokreni (potrebni su Python 3 i Pillow):
 
 ```
-python3 tools/build-min.py && python3 tools/build-pages.py && python3 tools/make-dist.py
-python3 tools/check-links.py       # proverava putanje i sidra u dist/
+python3 izvor/alati/build-min.py && python3 izvor/alati/build-pages.py
+python3 izvor/alati/check-links.py       # proverava putanje i sidra u sajt/
 ```
 
-Ne menjaj ručno `index.html` itd. u korenu ako ćeš ponovo pokretati `build-pages.py` (ručne izmene se prepisuju). Ako ne želiš Python, možeš da menjaš HTML fajlove u `dist/` direktno; tekst je običan HTML.
+Ne menjaj ručno `sajt/*.html` ako ćeš ponovo pokretati `build-pages.py` (ručne izmene se prepisuju). Ako ne želiš Python, možeš da menjaš HTML fajlove u `sajt/` direktno; tekst je običan HTML.
 
 | Šta menjaš | Gde |
 |---|---|
-| Tekst vremenske linije | `TL` u `tools/build-pages.py` |
-| Sekcije (kartice i detalji) | `SECS` u `tools/build-pages.py` |
+| Tekst vremenske linije | `TL` u `izvor/alati/build-pages.py` |
+| Sekcije (kartice i detalji) | `SECS` u `izvor/alati/build-pages.py` |
 | **Događaji jubileja** | funkcija `jubilej()`: dodaj `<li class="event">…</li>` (datum ide u `<span class="d">`) |
 | Festival „Leto kod Abraševića“ | funkcija `performances()` |
 | Spisak zemalja | `COUNTRIES` |
 | Rukovodioci na stranici Istorija | `people` u funkciji `istorija()` |
 | Kontakt podaci | `footer()`, `join_cta()`, `kontakt()` |
-| Boje i fontovi | promenljive na vrhu `css/main.css` (`:root`). Paleta: plava `#1f1f44`, zlatna `#c9922e` / `#e2b254`, bela i crna; bez crvene |
-| Domen | `SITE` na vrhu `tools/build-pages.py` + `robots.txt`, `sitemap.xml` (JSON-LD i OG se prave iz `SITE`) |
+| Boje i fontovi | promenljive na vrhu `izvor/css/main.css` (`:root`). Paleta: plava `#1f1f44`, zlatna `#c9922e` / `#e2b254`, bela i crna; bez crvene |
+| Domen | `SITE` na vrhu `izvor/alati/build-pages.py` + `sajt/robots.txt`, `sajt/sitemap.xml` (JSON-LD i OG se prave iz `SITE`) |
 
 ### Nove fotografije u galeriji
 
-1. Ubaci JPEG u `assets/gallery-img/`.
-2. `python3 tools/build-assets.py` pravi AVIF/WebP/JPEG u više veličina, blur-up placeholder i `img/meta.json`.
-3. Dodaj red u listu `GAL` u `tools/build-pages.py` (ključ je ime fajla bez `.jpg`, zatim opis (alt), kratak natpis i oblik: `wide`, `tall`, `full` ili prazno).
+1. Ubaci JPEG u `izvor/originali/gallery-img/`.
+2. `python3 izvor/alati/build-assets.py` pravi AVIF/WebP/JPEG u više veličina, blur-up placeholder i `izvor/generisano/meta.json`.
+3. Dodaj red u listu `GAL` u `izvor/alati/build-pages.py` (ključ je ime fajla bez `.jpg`, zatim opis (alt), kratak natpis i oblik: `wide`, `tall`, `full` ili prazno).
 4. Pokreni komande iz prethodnog odeljka. Za novu fotografiju se pojavljuje novo ime fajla pa nema problema sa kešom.
 
 ### Arhivske fotografije u vremenskoj liniji
@@ -70,7 +76,7 @@ U `TL` svaki čvor ima polje za sliku (trenutno samo „2020-e“). Dodaj ključ
 ## Bezbednost (ukratko)
 
 - CSP: `default-src 'self'` i ništa spolja, bez inline skripti i stilova (zato se sve animira preko CSS klasa i `style.setProperty`).
-- Kontakt forma ne šalje ništa preko sajta: proveri polja, ima honeypot i otvara `mailto:` sa ispunjenom porukom. Adresa e-pošte se sklapa u JS-u (zaštita od botova); bez JS-a link e-pošte ne radi, vidi se „[at]“ oblik.
+- Kontakt forma ne šalje ništa preko sajta: proveri polja, ima honeypot i otvara `mailto:` sa ispunjenom porukom. Adrese e-pošte su obični `mailto:` linkovi.
 - Spoljni linkovi (mape i društvene mreže) imaju `rel="noopener noreferrer"`.
 - Na sajtu nema imena maloletnika uz fotografije.
 
@@ -98,11 +104,10 @@ U `TL` svaki čvor ima polje za sliku (trenutno samo „2020-e“). Dodaj ključ
 
 | Skripta | Šta radi |
 |---|---|
-| `tools/build-assets.py` | slike, logo, favicon i OG slika iz `assets/` |
-| `tools/build-fonts.py` | smanjuje fontove (izvori u `tools/fonts-src/`) |
-| `tools/build-min.py` | spaja i minifikuje CSS/JS |
-| `tools/build-pages.py` | generiše HTML stranice |
-| `tools/make-dist.py` | pravi `dist/` |
-| `tools/check-links.py` | proverava putanje i sidra |
+| `izvor/alati/build-assets.py` | slike, logo, favicon i OG slika iz `izvor/originali/` |
+| `izvor/alati/build-fonts.py` | smanjuje fontove (izvori u `izvor/alati/fonts-src/`) |
+| `izvor/alati/build-min.py` | spaja i minifikuje CSS/JS |
+| `izvor/alati/build-pages.py` | generiše HTML stranice |
+| | `izvor/alati/check-links.py` | proverava putanje i sidra |
 
-Fontovi: Fraunces i Manrope, SIL Open Font License 1.1.
+Font: Manrope, SIL Open Font License 1.1.

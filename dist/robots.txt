@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /404.html
-
-# TODO: potvrditi konačni domen
-Sitemap: https://abrasevic.rs/sitemap.xml
