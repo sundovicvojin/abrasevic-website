@@ -206,20 +206,3 @@
   });
   dlg.addEventListener('pointercancel', function () { x0 = null; });
 })();
-
-/* ---- film: YouTube se učitava tek na klik (youtube-nocookie), event delegation ---- */
-document.addEventListener('click', function (e) {
-  var btn = e.target.closest && e.target.closest('.film-play');
-  var box = btn && btn.closest('[data-yt]');
-  if (!box) return;
-  var f = document.createElement('iframe');
-  f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(box.getAttribute('data-yt')) + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-  f.title = 'Film o KUD Abrašević';
-  f.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen';
-  f.allowFullscreen = true;
-  f.loading = 'lazy';
-  box.classList.add('on');
-  box.textContent = '';
-  box.appendChild(f);
-  f.focus();
-});
