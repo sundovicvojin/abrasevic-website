@@ -1,0 +1,7 @@
+Parametri za pristup na server
+
+session: abrasevic.rs
+host name: ftp.abrasevic.rs
+username: dsmj1331
+password: oodl8167
+ip: 77.105.36.11

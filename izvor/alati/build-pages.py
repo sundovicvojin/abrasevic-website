@@ -86,7 +86,7 @@ def footer():
         <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Vojvode+Stepe+8+Kraljevo" target="_blank" rel="noopener noreferrer">{ico("pin")}Vojvode Stepe 8, 36000 Kraljevo</a></li>
         <li><a href="tel:+38136331746">{ico("phone")}+381 36 331 746</a></li>
         <li><a href="tel:+38163333746">{ico("phone")}+381 63 333 746</a></li>
-        <li><a href="mailto:abrasevic_kv@mts.rs">{ico("mail")}<span>abrasevic_kv@mts.rs</span></a></li>
+        <li><a href="mailto:abrasevickraljevo@gmail.com">{ico("mail")}<span>abrasevickraljevo@gmail.com</span></a></li>
       </ul></div>
       <div><h2>Zapratite nas</h2>
         <div class="social">
@@ -353,7 +353,7 @@ def join_cta():
     <ul class="contact-list">
       <li>{ico("pin")}<div><a href="https://www.google.com/maps/search/?api=1&amp;query=Vojvode+Stepe+8+Kraljevo" target="_blank" rel="noopener noreferrer">Vojvode Stepe 8, 36000 Kraljevo</a><small>Sedište društva</small></div></li>
       <li>{ico("phone")}<div><a href="tel:+38136331746">+381 36 331 746</a><small>Telefon društva</small></div></li>
-      <li>{ico("mail")}<div><a href="mailto:abrasevic_kv@mts.rs">abrasevic_kv@mts.rs</a></div></li>
+      <li>{ico("mail")}<div><a href="mailto:abrasevickraljevo@gmail.com">abrasevickraljevo@gmail.com</a></div></li>
     </ul>
   </div></div></section>""".replace(' style="font-family:var(--serif)"','')
 
@@ -434,7 +434,6 @@ def kontakt():
         <li>{ico("pin")}<div><a href="https://www.google.com/maps/search/?api=1&amp;query=Vojvode+Stepe+8+Kraljevo" target="_blank" rel="noopener noreferrer">Vojvode Stepe 8, 36000 Kraljevo</a><small>Otvara mapu u novom prozoru</small></div></li>
         <li>{ico("phone")}<div><a href="tel:+38136331746">+381 36 331 746</a></div></li>
         <li>{ico("phone")}<div><a href="tel:+38163333746">+381 63 333 746</a></div></li>
-        <li>{ico("mail")}<div><a href="mailto:abrasevic_kv@mts.rs">abrasevic_kv@mts.rs</a></div></li>
         <li>{ico("mail")}<div><a href="mailto:abrasevickraljevo@gmail.com">abrasevickraljevo@gmail.com</a></div></li>
       </ul>
       <div class="social" style=""><a href="https://sr-rs.facebook.com/kudabrasevic.kraljevo/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">{ico("fb")}</a><a href="https://www.instagram.com/kud.abrasevic/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">{ico("ig")}</a><a href="https://www.youtube.com/channel/UCG3QizGtlDCb6fDte9GqJrQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube">{ico("yt")}</a></div>
@@ -448,7 +447,7 @@ def kontakt():
 </div></section>
 <section class="sec" aria-labelledby="h-poruka"><div class="wrap">
   <div class="sec-head rv"><h2 id="h-poruka">Napišite nam</h2><p class="intro">Poruka se ne šalje preko sajta. Dugme otvara vaš program za e-poštu sa već ispunjenom porukom, a ona stiže tek kad je vi pošaljete.</p></div>
-  <form class="form glass rv" id="contact-form" novalidate data-mail="abrasevic_kv@mts.rs" aria-describedby="form-note">
+  <form class="form glass rv" id="contact-form" novalidate data-mail="abrasevickraljevo@gmail.com" aria-describedby="form-note">
     <div class="field"><label for="f-name">Ime i prezime</label><input id="f-name" name="name" type="text" autocomplete="name" required maxlength="80" aria-describedby="e-name"><p class="err" id="e-name" role="alert"></p></div>
     <div class="field"><label for="f-mail">Vaša e-pošta</label><input id="f-mail" name="email" type="email" autocomplete="email" required maxlength="120" aria-describedby="e-mail"><p class="err" id="e-mail" role="alert"></p></div>
     <div class="field"><label for="f-msg">Poruka</label><textarea id="f-msg" name="message" required minlength="10" maxlength="1500" aria-describedby="e-msg"></textarea><p class="err" id="e-msg" role="alert"></p></div>
